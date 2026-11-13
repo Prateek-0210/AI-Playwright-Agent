@@ -7,13 +7,23 @@ class LoginPage {
   constructor(page) {
     this.page = page;
 
-    // Locators
+    // Locators — form fields
     this.usernameInput = page.locator('#username');
     this.passwordInput = page.locator('#password');
-    this.adminRadio    = page.locator('input[value="admin"]');
-    this.userRadio     = page.locator('input[value="user"]');
-    this.signInButton  = page.locator('#signInBtn');
-    this.errorAlert    = page.locator('.alert.alert-danger');
+    this.termsCheckbox = page.locator('#terms');
+
+    // Locators — role selection
+    this.adminRadio = page.locator('input[value="admin"]');
+    this.userRadio  = page.locator('input[value="user"]');
+
+    // Locators — user role modal
+    this.modal     = page.locator('#myModal');
+    this.modalBody = page.locator('#myModal .modal-body');
+    this.okayButton = page.locator('#okayBtn');
+
+    // Locators — actions & feedback
+    this.signInButton = page.locator('#signInBtn');
+    this.errorAlert   = page.locator('.alert.alert-danger');
   }
 
   async navigate() {
@@ -28,6 +38,18 @@ class LoginPage {
   /** @param {string} password */
   async fillPassword(password) {
     await this.passwordInput.fill(password);
+  }
+
+  async selectUserRole() {
+    await this.userRadio.click();
+  }
+
+  async confirmUserRoleModal() {
+    await this.okayButton.click();
+  }
+
+  async checkTerms() {
+    await this.termsCheckbox.check();
   }
 
   async clickSignIn() {
